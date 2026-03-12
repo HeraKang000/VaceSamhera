@@ -176,9 +176,15 @@ dl_hf "Comfy-Org/Wan_2.1_ComfyUI_repackaged" \
     "$MODELS/text_encoders"
 
 # CLIP vision (for image conditioning in R2V)
-echo "  [CLIP vision]"
+echo "  [CLIP vision — sigclip]"
 dl_hf "Comfy-Org/sigclip_vision_384" \
     "sigclip_vision_patch14_384.safetensors" \
+    "$MODELS/clip_vision"
+
+# CLIP vision H (for Wan2.2 Animate)
+echo "  [CLIP vision H — Wan2.2 Animate]"
+dl_hf "Comfy-Org/Wan_2.1_ComfyUI_repackaged" \
+    "split_files/clip_vision/clip_vision_h.safetensors" \
     "$MODELS/clip_vision"
 
 # SAM3 checkpoint
