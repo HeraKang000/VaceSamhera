@@ -97,7 +97,8 @@ mkdir -p \
     "$MODELS/sam3" \
     "$MODELS/controlnet" \
     "$MODELS/upscale_models" \
-    "$MODELS/detection"
+    "$MODELS/detection" \
+    "$MODELS/loras"
 
 # ── 4. Custom nodes ──────────────────────────────────────────
 echo ""
@@ -211,6 +212,12 @@ dl_hf "Kijai/WanVideo_comfy_fp8_scaled" \
     "Wan22Animate/Wan2_2-Animate-14B_fp8_scaled_e4m3fn_KJ_v2.safetensors" \
     "$MODELS/diffusion_models"
 
+# WanAnimate Relight LoRA (LightX2V)
+echo "  [WanAnimate Relight LoRA — fp16]"
+dl_hf "Kijai/WanVideo_comfy" \
+    "WanAnimate_relight_lora_fp16.safetensors" \
+    "$MODELS/loras"
+
 # ONNX detection models (for WanAnimatePreprocess)
 echo "  [ONNX detection models]"
 dl_hf "onnx-community/yolov10m" \
@@ -249,6 +256,7 @@ vacesamhera:
     upscale_models: upscale_models
     sam3: sam3
     detection: detection
+    loras: loras
 EOF
 green "extra_model_paths.yaml written"
 
