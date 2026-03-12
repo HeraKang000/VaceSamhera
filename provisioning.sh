@@ -72,6 +72,8 @@ export HF_HUB_ENABLE_HF_TRANSFER=1
 pip_quiet huggingface_hub hf_transfer
 pip_quiet decord opencv-python-headless imageio[ffmpeg]
 pip_quiet einops omegaconf timm
+pip_quiet sageattention==1.0.6
+pip_quiet onnx onnxruntime-gpu
 green "Python packages ready"
 
 # ── 3. ComfyUI ───────────────────────────────────────────────
@@ -94,7 +96,8 @@ mkdir -p \
     "$MODELS/clip_vision" \
     "$MODELS/sam3" \
     "$MODELS/controlnet" \
-    "$MODELS/upscale_models"
+    "$MODELS/upscale_models" \
+    "$MODELS/detection"
 
 # ── 4. Custom nodes ──────────────────────────────────────────
 echo ""
@@ -115,6 +118,10 @@ clone_or_update "comfyui_controlnet_aux" \
 clone_or_update "ComfyUI-Manager" \
     "https://github.com/Comfy-Org/ComfyUI-Manager"
 
+# WanAnimate preprocessing nodes
+clone_or_update "ComfyUI-WanAnimatePreprocess" \
+    "https://github.com/kijai/ComfyUI-WanAnimatePreprocess.git"
+
 # SAM3 base nodes
 clone_or_update "ComfyUI-SAM3" \
     "https://github.com/PozzettiAndrea/ComfyUI-SAM3"
@@ -124,6 +131,10 @@ clone_or_update "SAMhera" \
     "https://github.com/HeraKang000/SAMhera"
 
 green "All custom nodes ready"
+
+# ── Manager security config ───────────────────────────────────
+echo "security_level = weak" > "$CUSTOM_NODES/ComfyUI-Manager/config.ini"
+green "ComfyUI-Manager security set to weak"
 
 # ── 5. Models ────────────────────────────────────────────────
 echo ""
@@ -158,6 +169,12 @@ dl_hf "Comfy-Org/Wan_2.1_ComfyUI_repackaged" \
     "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors" \
     "$MODELS/text_encoders"
 
+# Text encoder — fp16 (for WanAnimate workflow)
+echo "  [UMT5 text encoder — fp16]"
+dl_hf "Comfy-Org/Wan_2.1_ComfyUI_repackaged" \
+    "split_files/text_encoders/umt5_xxl_fp16.safetensors" \
+    "$MODELS/text_encoders"
+
 # CLIP vision (for image conditioning in R2V)
 echo "  [CLIP vision]"
 dl_hf "Comfy-Org/sigclip_vision_384" \
@@ -169,6 +186,32 @@ echo "  [SAM3 checkpoint]"
 dl_hf "1038lab/sam3" \
     "sam3.pt" \
     "$MODELS/sam3"
+
+# Wan2.2 Animate 14B fp8 (for WanAnimate workflow)
+echo "  [Wan2.2 Animate 14B — fp8 ~15GB]"
+dl_hf "Kijai/WanVideo_comfy_fp8_scaled" \
+    "Wan22Animate/Wan2_2-Animate-14B_fp8_scaled_e4m3fn_KJ_v2.safetensors" \
+    "$MODELS/diffusion_models"
+
+# ONNX detection models (for WanAnimatePreprocess)
+echo "  [ONNX detection models]"
+dl_hf "onnx-community/yolov10m" \
+    "onnx/model.onnx" \
+    "$MODELS/detection"
+python3 - <<PYEOF
+import shutil, os
+src = "/workspace/ComfyUI/models/detection/onnx/model.onnx"
+dst = "/workspace/ComfyUI/models/detection/yolov10m.onnx"
+if os.path.exists(src) and not os.path.exists(dst):
+    shutil.move(src, dst)
+PYEOF
+
+dl_hf "Kijai/vitpose_comfy" \
+    "onnx/vitpose_h_wholebody_model.onnx" \
+    "$MODELS/detection"
+dl_hf "Kijai/vitpose_comfy" \
+    "onnx/vitpose_h_wholebody_data.bin" \
+    "$MODELS/detection"
 
 green "All models downloaded"
 
@@ -187,6 +230,7 @@ vacesamhera:
     controlnet: controlnet
     upscale_models: upscale_models
     sam3: sam3
+    detection: detection
 EOF
 green "extra_model_paths.yaml written"
 
