@@ -146,7 +146,7 @@ dl_hf "Wan-AI/Wan2.1-VACE-14B" \
 
 # Text encoder — fp8 safetensors (NOT the .pth pickle in VACE repo)
 echo "  [UMT5 text encoder — fp8 safetensors]"
-dl_hf "Comfy-Org/mochi_preview_repackaged" \
+dl_hf "Comfy-Org/Wan_2.1_ComfyUI_repackaged" \
     "split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors" \
     "$MODELS/text_encoders"
 
