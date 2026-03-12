@@ -113,7 +113,7 @@ clone_or_update "comfyui_controlnet_aux" \
 
 # Background removal (for R2V identity isolation)
 clone_or_update "ComfyUI-BRIA-AI-RMBG" \
-    "https://github.com/ZHO-ZHO-ZHO/ComfyUI-BRIA-AI-RMBG"
+    "https://github.com/briaai/ComfyUI-BRIA-AI-RMBG"
 
 # SAMhera — custom nodes (VLM + SAM3 segmentation)
 clone_or_update "SAMhera" \
