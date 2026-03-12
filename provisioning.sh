@@ -188,7 +188,7 @@ echo "── 7. Launching ComfyUI"
 pkill -f "python.*main.py" 2>/dev/null || true
 sleep 1
 
-nohup python "$COMFY_ROOT/main.py" \
+nohup python3 "$COMFY_ROOT/main.py" \
     --listen 0.0.0.0 \
     --port 8188 \
     --enable-cors-header \
