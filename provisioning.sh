@@ -215,7 +215,7 @@ dl_hf "Kijai/WanVideo_comfy_fp8_scaled" \
 # WanAnimate Relight LoRA (LightX2V)
 echo "  [WanAnimate Relight LoRA — fp16]"
 dl_hf "Kijai/WanVideo_comfy" \
-    "WanAnimate_relight_lora_fp16.safetensors" \
+    "LoRAs/Wan22_relight/WanAnimate_relight_lora_fp16.safetensors" \
     "$MODELS/loras"
 
 # ONNX detection models (for WanAnimatePreprocess)
