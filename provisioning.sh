@@ -111,6 +111,14 @@ clone_or_update "ComfyUI-WanVideoWrapper" \
 clone_or_update "comfyui_controlnet_aux" \
     "https://github.com/Fannovel16/comfyui_controlnet_aux"
 
+# ComfyUI Manager
+clone_or_update "ComfyUI-Manager" \
+    "https://github.com/Comfy-Org/ComfyUI-Manager"
+
+# SAM3 base nodes
+clone_or_update "ComfyUI-SAM3" \
+    "https://github.com/PozzettiAndrea/ComfyUI-SAM3"
+
 # SAMhera — custom nodes (VLM + SAM3 segmentation)
 clone_or_update "SAMhera" \
     "https://github.com/HeraKang000/SAMhera"
