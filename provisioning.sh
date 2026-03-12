@@ -110,6 +110,18 @@ clone_or_update "ComfyUI-VideoHelperSuite" \
 clone_or_update "ComfyUI-WanVideoWrapper" \
     "https://github.com/kijai/ComfyUI-WanVideoWrapper"
 
+# KJNodes (kijai utility nodes)
+clone_or_update "ComfyUI-KJNodes" \
+    "https://github.com/kijai/ComfyUI-KJNodes"
+
+# Segment Anything 2 (kijai)
+clone_or_update "ComfyUI-segment-anything-2" \
+    "https://github.com/kijai/ComfyUI-segment-anything-2"
+
+# TensorOps
+clone_or_update "comfyui-tensorops" \
+    "https://github.com/un-seen/comfyui-tensorops"
+
 # ControlNet (DWPose + DepthAnything for pose/depth preprocessing)
 clone_or_update "comfyui_controlnet_aux" \
     "https://github.com/Fannovel16/comfyui_controlnet_aux"
