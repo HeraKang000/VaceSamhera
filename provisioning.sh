@@ -111,10 +111,6 @@ clone_or_update "ComfyUI-WanVideoWrapper" \
 clone_or_update "comfyui_controlnet_aux" \
     "https://github.com/Fannovel16/comfyui_controlnet_aux"
 
-# Background removal (for R2V identity isolation)
-clone_or_update "ComfyUI-BRIA-AI-RMBG" \
-    "https://github.com/briaai/ComfyUI-BRIA-AI-RMBG"
-
 # SAMhera — custom nodes (VLM + SAM3 segmentation)
 clone_or_update "SAMhera" \
     "https://github.com/HeraKang000/SAMhera"
